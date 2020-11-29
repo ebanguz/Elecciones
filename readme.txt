@@ -1,0 +1,2 @@
+Aumentar el espacio de la columna descripción de la tabla puestos, agregar una nueva tabla que lleve la auditoría de los votos,
+parte de agregar puestos terminada, pendiente el agregar apartado para activar puestos

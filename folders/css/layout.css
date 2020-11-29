@@ -3,27 +3,33 @@ body {
 }
 
 h3 {
-    color: rgb(119, 9, 228);
+    color: rgb(240, 236, 245);
     font-size: 50px;
     font-weight: lighter;
     font-style: italic;
 }
 
 h1 {
-    color: rgb(119, 9, 228);
+    color: rgb(240, 236, 245);
     font-weight: bold;
     font-style: italic;
 }
 
 p {
-    color: rgb(119, 9, 228);
+    color: rgb(240, 236, 245);
     font-size: 30px;
     font-weight: lighter;
     font-style: italic;
 }
 
 a {
-    color: rgb(233, 34, 143);
+    color: rgb(240, 236, 245);
+    font-weight: bold;
+    font-style: italic;
+}
+
+label {
+    color: rgb(240, 236, 245);
     font-weight: bold;
     font-style: italic;
 }

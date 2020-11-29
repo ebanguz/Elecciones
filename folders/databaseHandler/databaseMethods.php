@@ -11,11 +11,11 @@ class DataBaseMethods
         $this->connection = new databaseConnection($directory);
     }
 
-    public function getTableUsuario($user)
+    public function getAdministrador($user,$password)
     {
 
-        $stm = $this->connection->db->prepare('Select * FROM usuario where usuario = ?');
-        $stm->bind_param('s', $user);
+        $stm = $this->connection->db->prepare('Select * FROM administracion where usuario = ? and clave = ?');
+        $stm->bind_param('ss', $user,$password);
         $stm->execute();
 
         $result = $stm->get_result();
@@ -26,28 +26,55 @@ class DataBaseMethods
         } else {
 
             $row = $result->fetch_object();
-            $user = new Usuario();
+            $user = new Administrador();
 
             $user->id_usuario = $row->id_usuario;
-            $user->nombre = $row->nombre;
-            $user->apellido = $row->apellido;
-            $user->telefono = $row->telefono;
-            $user->correo = $row->correo;
             $user->usuario = $row->usuario;
             $user->clave = $row->clave;
+            $user->nombre = $row->nombre;
+            $user->apellido = $row->apellido;
+            $user->cedula = $row->cedula;
 
             $stm->close();
             return $user;
         }
     }
 
-    public function getFriends($id)
+    public function getAdministradorById($id)
+    {
+
+        $stm = $this->connection->db->prepare('Select * FROM administracion where id_usuario = ?');
+        $stm->bind_param('i', $id);
+        $stm->execute();
+
+        $result = $stm->get_result();
+
+        if ($result->num_rows === 0) {
+
+            return null;
+        } else {
+
+            $row = $result->fetch_object();
+            $user = new Administrador();
+
+            $user->id_usuario = $row->id_usuario;
+            $user->usuario = $row->usuario;
+            $user->clave = $row->clave;
+            $user->nombre = $row->nombre;
+            $user->apellido = $row->apellido;
+            $user->cedula = $row->cedula;
+
+            $stm->close();
+            return $user;
+        }
+    }
+
+    public function getPuestosActivos()
     {
 
         $tableList = array();
 
-        $stm = $this->connection->db->prepare('Select * FROM Amigos WHERE id_usuario = ?');
-        $stm->bind_param('i', $id);
+        $stm = $this->connection->db->prepare('Select * FROM Puestos WHERE estado = 1');
         $stm->execute();
 
         $result = $stm->get_result();
@@ -57,10 +84,12 @@ class DataBaseMethods
             return $tableList;
         } else {
             while ($row = $result->fetch_object()) {
-                $user = new Amigos();
+                $user = new Puestos();
 
-                $user->id_amigo = $row->id_amigo;
-                $user->id_usuario = $row->id_usuario;
+                $user->id_puesto = $row->id_puesto;
+                $user->nombre = $row->nombre;
+                $user->descripcion = $row->descripcion;
+                $user->estado = $row->estado;
 
                 array_push($tableList, $user);
             }
@@ -70,33 +99,46 @@ class DataBaseMethods
         }
     }
 
-    public function searchUser($id)
+    public function getCandidatesActives()
     {
 
-        $stm = $this->connection->db->prepare('Select * FROM usuario WHERE id_usuario = ?');
-        $stm->bind_param('i', $id);
+        $tableList = array();
+
+        $stm = $this->connection->db->prepare('Select * FROM Candidatos WHERE estado = 1');
         $stm->execute();
 
         $result = $stm->get_result();
 
         if ($result->num_rows === 0) {
 
-            return null;
+            return $tableList;
         } else {
-            $row = $result->fetch_object();
-            $user = new Usuario();
+            while ($row = $result->fetch_object()) {
+                $user = new Candidatos();
 
-            $user->id_usuario = $row->id_usuario;
-            $user->nombre = $row->nombre;
-            $user->apellido = $row->apellido;
-            $user->telefono = $row->telefono;
-            $user->correo = $row->correo;
-            $user->usuario = $row->usuario;
-            $user->clave = $row->clave;
+                $user->id_candidato = $row->id_candidato;
+                $user->nombre = $row->nombre;
+                $user->apellido = $row->apellido;
+                $user->id_partido = $row->id_partido;
+                $user->id_puesto = $row->id_puesto;
+                $user->foto_perfil = $row->foto_perfil;
+                $user->estado = $row->estado;
+
+                array_push($tableList, $user);
+            }
 
             $stm->close();
-            return $user;
+            return $tableList;
         }
+    }
+
+    public function addPuesto($puesto)
+    {
+
+        $stm = $this->connection->db->prepare('insert into Puestos(nombre,descripcion) VALUES(?,?)');
+        $stm->bind_param('ss', $puesto->nombre,$puesto->descripcion);
+        $stm->execute();
+
     }
 
     public function totalFriends($id)

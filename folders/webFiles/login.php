@@ -2,7 +2,15 @@
 
 require_once '../layouts/layout.php';
 
-$layout = new Layout(true, 'Elecciones',false);
+session_start();
+
+if(isset($_SESSION['administracion'])) {
+
+    header('Location: ..\webFiles\Administracion.php');
+}
+
+
+$layout = new Layout(true, 'Log in',true);
 
 ?>
 
@@ -15,7 +23,7 @@ $layout = new Layout(true, 'Elecciones',false);
     <div class="col-md-4"></div>
     <div class="col-md-4">
         <form class="form-signin">
-            <img class="mb-4" src="../images/web/elecciones.jfif" alt="" width="350" height="100">
+            <img class="mb-4" src="../images/web/elecciones.jfif" alt="" width="350" height="120">
             <h1 class="h3 mb-3 font-weight-normal">Ingrese su cédula para continuar</h1>
             <label for="cedula" class="sr-only">Usuario</label>
             <input type="text" id="cedula" class="form-control" placeholder="Ingrese su cédula">

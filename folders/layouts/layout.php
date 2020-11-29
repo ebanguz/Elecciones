@@ -40,12 +40,12 @@ class Layout
     <header class="masthead mb-auto">
         
     <div class="row">
-    <div class="col-md-5"><h3 class="masthead-brand">Elecciones</h3></div>
-    <div class="col-md-1"></div>
-    <div class="col-md-3"><nav class="nav nav-masthead justify-content-center">
-    <a class="nav-link active" href="{$this->directory}folders\webFiles\loginAdministracion.php">Panel Administrativo</a></div>
-    <div class="col-md-3"><nav class="nav nav-masthead justify-content-center">
-            <a class="nav-link active" href="{$this->logout}">Log out</a>
+    <div class="col-md-2"><a class="nav-link active btn btn-danger" href="{$this->directory}index.php">Inicio</a></div>
+    <div class="col-md-4"><img class="mb-4" src="{$this->directory}folders/images/web/votos.jfif" alt="" width="350" height="50"></div>
+    <div class="col-md-4"><nav class="nav nav-masthead justify-content-center">
+    <a class="nav-link active btn btn-danger" href="{$this->directory}folders\webFiles\loginAdministracion.php">Panel Administrativo</a></div>
+    <div class="col-md-2"><nav class="nav nav-masthead justify-content-center">
+            <a class="nav-link active btn btn-danger" href="{$this->logout}">Log out</a>
     </nav></div>
     </div>
         
@@ -70,6 +70,9 @@ class Layout
     
     
     </body></html>
+    <script src="{$this->directory}folders/js/librarys/jquery/jquery-3.5.1.min.js"></script>
+    <script src="{$this->directory}folders/js/librarys/bootstrap/bootstrap.min.jss"></script>
+    <script src="{$this->directory}folders/js/librarys/toastr/toastr.min.js"></script>
     EOF;
 
     echo $footer;
