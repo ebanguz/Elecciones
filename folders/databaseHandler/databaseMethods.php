@@ -11,11 +11,11 @@ class DataBaseMethods
         $this->connection = new databaseConnection($directory);
     }
 
-    public function getAdministrador($user,$password)
+    public function getAdministrador($user, $password)
     {
 
         $stm = $this->connection->db->prepare('Select * FROM administracion where usuario = ? and clave = ?');
-        $stm->bind_param('ss', $user,$password);
+        $stm->bind_param('ss', $user, $password);
         $stm->execute();
 
         $result = $stm->get_result();
@@ -74,7 +74,7 @@ class DataBaseMethods
 
         $tableList = array();
 
-        $stm = $this->connection->db->prepare('Select * FROM Puestos WHERE estado = 1');
+        $stm = $this->connection->db->prepare('Select * FROM Puestos WHERE estado = true');
         $stm->execute();
 
         $result = $stm->get_result();
@@ -99,12 +99,39 @@ class DataBaseMethods
         }
     }
 
+    public function getPuestoById($id)
+    {
+
+        $stm = $this->connection->db->prepare('Select * FROM Puestos where id_puesto = ?');
+        $stm->bind_param('i', $id);
+        $stm->execute();
+
+        $result = $stm->get_result();
+
+        if ($result->num_rows === 0) {
+
+            return null;
+        } else {
+
+            $row = $result->fetch_object();
+            $user = new Puestos();
+
+            $user->id_puesto = $row->id_puesto;
+            $user->nombre = $row->nombre;
+            $user->descripcion = $row->descripcion;
+            $user->estado = $row->estado;
+
+            $stm->close();
+            return $user;
+        }
+    }
+
     public function getCandidatesActives()
     {
 
         $tableList = array();
 
-        $stm = $this->connection->db->prepare('Select * FROM Candidatos WHERE estado = 1');
+        $stm = $this->connection->db->prepare('Select * FROM Candidatos WHERE estado = true');
         $stm->execute();
 
         $result = $stm->get_result();
@@ -136,9 +163,24 @@ class DataBaseMethods
     {
 
         $stm = $this->connection->db->prepare('insert into Puestos(nombre,descripcion) VALUES(?,?)');
-        $stm->bind_param('ss', $puesto->nombre,$puesto->descripcion);
+        $stm->bind_param('ss', $puesto->nombre, $puesto->descripcion);
         $stm->execute();
+    }
 
+    public function EditPuesto($puesto)
+    {
+
+        $stm = $this->connection->db->prepare('update Puestos set nombre = ?, descripcion = ? where id_puesto = ?');
+        $stm->bind_param('ssi', $puesto->nombre, $puesto->descripcion, $puesto->id_puesto);
+        $stm->execute();
+    }
+
+    public function DeshabilitarPuesto($id)
+    {
+
+        $stm = $this->connection->db->prepare('update Puestos set estado = false where id_puesto = ?');
+        $stm->bind_param('i', $id);
+        $stm->execute();
     }
 
     public function totalFriends($id)

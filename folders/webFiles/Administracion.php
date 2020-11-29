@@ -23,7 +23,7 @@ $puestos = $data->getPuestosActivos();
 
 <div class="row">
     <div class="col-md-2"><a class="btn btn-danger" href="agregarPuesto.php">Agregar puesto electivo</a></div>
-    <div class="col-md-2"></div>
+    <div class="col-md-2"><a class="btn btn-danger" href="activarPuesto.php">Activar puestos</a></div>
     <div class="col-md-4"></div>
     <div class="col-md-4"></div>
 </div>
@@ -41,7 +41,20 @@ $puestos = $data->getPuestosActivos();
     <?php else : ?>
         <?php foreach ($puestos as $post) : ?>
             <div class="col-md-2">
-                <a class='nav-link active btn btn-danger' href="PuestoAdministracion.php?id_puesto=<?= $post->id_puesto; ?>"><?= $post->nombre; ?></a>
+                <div class="card" style="width: 14rem;">
+                    <div class="card-body">
+                        <h5 class="card-title"><?= $post->nombre; ?></h5>
+                        <h6 class="card-subtitle mb-2 text-muted"><?= $post->descripcion; ?></h6>
+                        <hr>
+                        <a href="PuestoAdministracion.php?id_puesto=<?= $post->id_puesto; ?>" class="btn btn-danger">Ver candidatos</a>
+                        <br>
+                        <br>
+                        <a href="modificarPuesto.php?id_puesto=<?= $post->id_puesto; ?>" class="btn btn-danger">Modificar</a>
+                        <br>
+                        <br>
+                        <a href="desactivarPuesto.php?id_puesto=<?= $post->id_puesto; ?>" class="btn btn-danger">Desactivar</a>
+                    </div>
+                </div>
             </div>
         <?php endforeach; ?>
     <?php endif; ?>
