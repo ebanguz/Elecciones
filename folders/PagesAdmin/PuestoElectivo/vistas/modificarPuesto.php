@@ -8,7 +8,7 @@ require_once '../../../objects/Puestos.php';
 session_start();
 
 $layout = new Layout(true, 'Modificar Puesto', false);
-$data = new DataBaseMethods('../../databaseHandler');
+$data = new DataBaseMethods('../../../databaseHandler');
 
 if (isset($_SESSION['administracion'])) {
     $administrador = json_decode($_SESSION['administracion']);
