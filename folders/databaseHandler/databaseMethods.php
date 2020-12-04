@@ -314,7 +314,7 @@ class DataBaseMethods
                 $name = $partido->nombre . '.' . $typeReplace;
                 $timeFile = $logo['tmp_name'];
 
-                $sucess = $this->uploadImage('../images/partidos/', $name, $timeFile, $type, $size);
+                $sucess = $this->uploadImage('../assets/images/partidos/', $name, $timeFile, $type, $size);
 
                 if ($sucess) {
 
@@ -343,7 +343,7 @@ class DataBaseMethods
                 $name = $partido->nombre . '.' . $typeReplace;
                 $timeFile = $logo['tmp_name'];
 
-                $sucess = $this->uploadImage('../images/partidos/', $name, $timeFile, $type, $size);
+                $sucess = $this->uploadImage('../assets/images/partidos/', $name, $timeFile, $type, $size);
 
                 if ($sucess) {
 

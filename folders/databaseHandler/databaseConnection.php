@@ -1,6 +1,5 @@
 <?php
 
-
 class databaseConnection {
     public $db;
     private $json;

@@ -1,0 +1,1 @@
+para que lo agarre git, cuando la carpeta tenga algo en su interior, borran este archivo.

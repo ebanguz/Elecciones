@@ -1,19 +1,19 @@
 <?php
 
-require_once '../layouts/layout.php';
-require_once '../JsonHandler/JsonFileHandler.php';
-require_once '../databaseHandler/databaseMethods.php';
-require_once '../objects/Puestos.php';
+require_once '../../../layouts/layout.php';
+require_once '../../../helpers/FileHandler/JsonFileHandler.php';
+require_once '../../../databaseHandler/databaseMethods.php';
+require_once '../../../objects/Puestos.php';
 
 session_start();
 
 $layout = new Layout(true, 'Modificar Puesto', false);
-$data = new DataBaseMethods('../databaseHandler');
+$data = new DataBaseMethods('../../databaseHandler');
 
 if (isset($_SESSION['administracion'])) {
     $administrador = json_decode($_SESSION['administracion']);
 } else {
-    header('Location: loginAdministracion.php');
+    header('Location: ../../Login/vista/loginAdministracion.php');
 }
 
 if(isset($_GET['id_puesto'])) {
@@ -39,7 +39,7 @@ if(isset($_GET['id_puesto'])) {
                 $data->EditPuesto($puesto);
                 echo "<script> alert('El puesto ha sido añadido correctamente.'); </script>";
         
-                header('Location: Administracion.php');
+                header('Location: ../../Login/vista/Administracion.php');
             }
         }
     }
@@ -55,7 +55,7 @@ if(isset($_GET['id_puesto'])) {
 <div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-4">
-        <img class="mb-4" src="../images/web/puesto.jfif" alt="" width="350" height="120">
+        <img class="mb-4" src="../../../assets/images/web/puesto.jfif" alt="" width="350" height="120">
         <br>
         <form action='modificarPuesto.php?id_puesto=<?= $idPuesto; ?>' method="POST">
             <div class="form-group">

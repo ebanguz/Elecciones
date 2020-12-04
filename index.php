@@ -11,12 +11,12 @@ if(isset($_SESSION['votacion'])) {
 
 } else {
 
-    header('Location: folders\webFiles\login.php');
+    header('Location: folders\VistaElector\login\vista\login.php');
 }
 
 if(isset($_SESSION['administracion'])) {
 
-    header('Location: folders\webFiles\Administracion.php');
+    header('Location: folders\PagesAdmin\Login\vista\Administracion.php');
 }
 
 ?>

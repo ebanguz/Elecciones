@@ -1,21 +1,30 @@
 <?php
 
-require_once '../layouts/layout.php';
-require_once '../JsonHandler/JsonFileHandler.php';
-require_once '../databaseHandler/databaseMethods.php';
-require_once '../objects/Puestos.php';
+require_once '../../../layouts/layout.php';
+require_once '../../../helpers/FileHandler/JsonFileHandler.php';
+require_once '../../../databaseHandler/databaseMethods.php';
+require_once '../../../objects/Puestos.php';
 
 session_start();
 
 if (isset($_SESSION['administracion'])) {
     $administrador = json_decode($_SESSION['administracion']);
 } else {
-    header('Location: loginAdministracion.php');
+    header('Location: ../../Login/vista/loginAdministracion.php');
 }
 
-$layout = new Layout(true, 'Administración', false);
-$data = new DataBaseMethods('../databaseHandler');
-$puestos = $data->getPuestosActivos();
+$layout = new Layout(true, 'Activar Puesto', false);
+$data = new DataBaseMethods('../../../databaseHandler');
+$puestos = $data->getPuestosInactivos();
+
+if(isset($_GET['id_puesto'])) {
+
+    $idPuesto = $_GET['id_puesto'];
+
+    $data->HabilitarPuesto($idPuesto);
+
+    header('Location: activarPuesto.php');
+}
 
 ?>
 
@@ -23,11 +32,9 @@ $puestos = $data->getPuestosActivos();
 
 <div class="row">
     <div class="col-md-2"><a class="btn btn-danger" href="agregarPuesto.php">Agregar puesto electivo</a></div>
-    <div class="col-md-2"><a class="btn btn-danger" href="activarPuesto.php">Activar puestos</a></div>
-    <div class="col-md-2"><a class="btn btn-danger" href="agregarPartido.php">Agregar partido político</a></div>
-    <div class="col-md-2"><a class="btn btn-danger" href="agregarPartido.php">Ver partidos políticos</a></div>
-    <div class="col-md-2"><a class="btn btn-danger" href="agregarCandidato.php">Agregar candidato</a></div>
-    <div class="col-md-2"><a class="btn btn-danger" href="agregarCandidato.php">Ver candidatos</a></div>
+    <div class="col-md-2"></div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4"></div>
 </div>
 <br>
 <br>
@@ -37,7 +44,7 @@ $puestos = $data->getPuestosActivos();
     <div class="col-md-2"></div>
     <?php if ($puestos == "" || $puestos == null) : ?>
         <div class="col-md-4">
-            <h2 style='color: #FFFFFF;'>No hay puestos electivos disponibles.</h2><a class="nav-link active btn btn-danger" href="agregarPuesto.php">Agregar puesto electivo</a>
+            <h2 style='color: #FFFFFF;'>No hay puestos electivos inactivos.</h2><a class="nav-link active btn btn-danger" href="agregarPuesto.php">Agregar puesto electivo</a>
         </div>
 
     <?php else : ?>
@@ -54,7 +61,7 @@ $puestos = $data->getPuestosActivos();
                         <a href="modificarPuesto.php?id_puesto=<?= $post->id_puesto; ?>" class="btn btn-danger">Modificar</a>
                         <br>
                         <br>
-                        <a href="desactivarPuesto.php?id_puesto=<?= $post->id_puesto; ?>" class="btn btn-danger">Desactivar</a>
+                        <a href="activarPuesto.php?id_puesto=<?= $post->id_puesto; ?>" class="btn btn-danger">Activar</a>
                     </div>
                 </div>
             </div>

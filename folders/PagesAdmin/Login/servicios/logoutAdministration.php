@@ -4,6 +4,6 @@ session_start();
 
 unset($_SESSION['administracion']);
 
-header('location: loginAdministracion.php');
+header('location: ../vista/loginAdministracion.php');
 
 ?>

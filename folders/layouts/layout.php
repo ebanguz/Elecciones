@@ -11,14 +11,14 @@ class Layout
     function __construct($action,$title,$type)
     {
         $this->action = $action;
-        $this->directory = ($this->action) ? "../../" : "";
+        $this->directory = ($this->action) ? "../../../../" : "";
         $this->title = $title;
         $this->type = $type;
     }
 
     public function header()
     {
-        $this->logout = ($this->type) ? $this->directory."folders/webFiles/logout.php" : $this->directory."folders/webFiles/logoutAdministration.php";
+        $this->logout = ($this->type) ? $this->directory."folders\VistaElector\login\servicio\logout.php" : $this->directory."folders\PagesAdmin\Login\servicios\logoutAdministration.php";
 
         $header = <<<EOF
         <html lang="en"><head>
@@ -41,9 +41,9 @@ class Layout
         
     <div class="row">
     <div class="col-md-2"><a class="nav-link active btn btn-danger" href="{$this->directory}index.php">Inicio</a></div>
-    <div class="col-md-4"><img class="mb-4" src="{$this->directory}folders/images/web/votos.jfif" alt="" width="350" height="50"></div>
+    <div class="col-md-4"><img class="mb-4" src="{$this->directory}folders/assets/images/web/votos.jfif" alt="" width="350" height="50"></div>
     <div class="col-md-4"><nav class="nav nav-masthead justify-content-center">
-    <a class="nav-link active btn btn-danger" href="{$this->directory}folders\webFiles\loginAdministracion.php">Panel Administrativo</a></div>
+    <a class="nav-link active btn btn-danger" href="{$this->directory}folders/PagesAdmin/Login/vista/loginAdministracion.php">Panel Administrativo</a></div>
     <div class="col-md-2"><nav class="nav nav-masthead justify-content-center">
             <a class="nav-link active btn btn-danger" href="{$this->logout}">Log out</a>
     </nav></div>

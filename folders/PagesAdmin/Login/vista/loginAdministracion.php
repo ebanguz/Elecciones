@@ -1,13 +1,13 @@
 <?php
 
-require_once '../layouts/layout.php';
-require_once '../JsonHandler/JsonFileHandler.php';
-require_once '../databaseHandler/databaseMethods.php';
-require_once '../objects/Administrador.php';
+require_once '../../../layouts/layout.php';
+require_once '../../../helpers/FileHandler/JsonFileHandler.php';
+require_once '../../../databaseHandler/databaseMethods.php';
+require_once '../../../objects/Administrador.php';
 
 session_start();
 
-$getUser = new DataBaseMethods('../databaseHandler');
+$getUser = new DataBaseMethods('../../../databaseHandler');
 
 if(isset($_SESSION['administracion'])) {
 
@@ -43,7 +43,7 @@ $layout = new Layout(true, 'Log in Administración', false);
     <div class="col-md-4"></div>
     <div class="col-md-4">
         <form class="form-signin" action="loginAdministracion.php" method="POST">
-            <img class="mb-4" src="../images/web/elecciones.jfif" alt="" width="350" height="100">
+            <img class="mb-4" src="../../../assets/images/web/elecciones.jfif" alt="" width="350" height="100">
             <h1 class="h3 mb-3 font-weight-normal">Ingrese sus credenciales para continuar</h1>
             <label for="usuario" class="sr-only">Usuario</label>
             <input type="text" id="usuario" class="form-control" placeholder="Ingrese su usuario" name="usuario">
