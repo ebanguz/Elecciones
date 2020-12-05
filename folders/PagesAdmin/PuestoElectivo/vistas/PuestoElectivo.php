@@ -14,38 +14,25 @@ if (isset($_SESSION['administracion'])) {
     header('Location: ../../Login/vista/loginAdministracion.php');
 }
 
-$layout = new Layout(true, 'Activar Puesto', false);
-$data = new PuestosHandler('../../../databaseHandler');
-$puestos = $data->getInactive();
-
-if(isset($_GET['id_puesto'])) {
-
-    $idPuesto = $_GET['id_puesto'];
-
-    $data->Habilitar($idPuesto);
-
-    header('Location: activarPuesto.php');
-}
+$layout = new Layout(true, 'Puesto Electivo', false);
+$dataPuestos = new PuestosHandler('../../../databaseHandler');
+$puestos = $dataPuestos->getAll();
 
 ?>
 
 <?php $layout->Header(); ?>
-
 <div class="row">
-    <div class="col-md-2"><a class="btn btn-danger" href="agregarPuesto.php">Agregar puesto electivo</a></div>
     <div class="col-md-2"></div>
-    <div class="col-md-4"></div>
-    <div class="col-md-4"></div>
+    <div class="col-md-2"><a class="btn btn-danger" href="agregarPuesto.php">Agregar puesto electivo</a></div>
+    <div class="col-md-8"></div>
 </div>
-<br>
-<br>
 <br>
 <br>
 <div class="row">
     <div class="col-md-2"></div>
     <?php if ($puestos == "" || $puestos == null) : ?>
         <div class="col-md-4">
-            <h2 style='color: #FFFFFF;'>No hay puestos electivos inactivos.</h2><a class="nav-link active btn btn-danger" href="agregarPuesto.php">Agregar puesto electivo</a>
+            <h2>No hay puestos agregados.</h1>
         </div>
 
     <?php else : ?>
@@ -56,13 +43,17 @@ if(isset($_GET['id_puesto'])) {
                         <h5 class="card-title"><?= $post->nombre; ?></h5>
                         <h6 class="card-subtitle mb-2 text-muted"><?= $post->descripcion; ?></h6>
                         <hr>
-                        <a href="PuestoAdministracion.php?id_puesto=<?= $post->id_puesto; ?>" class="btn btn-danger">Ver candidatos</a>
+                        <a href="../../PuestoElectivo/vistas/PuestoAdministracion.php?id_puesto=<?= $post->id_puesto; ?>" class="btn btn-danger">Ver candidatos</a>
                         <br>
                         <br>
-                        <a href="modificarPuesto.php?id_puesto=<?= $post->id_puesto; ?>" class="btn btn-danger">Modificar</a>
+                        <a href="../../PuestoElectivo/vistas/modificarPuesto.php?id_puesto=<?= $post->id_puesto; ?>" class="btn btn-danger">Modificar</a>
                         <br>
                         <br>
-                        <a href="activarPuesto.php?id_puesto=<?= $post->id_puesto; ?>" class="btn btn-danger">Activar</a>
+                        <?php if ($post->estado == 1) : ?>
+                            <a href="../../PuestoElectivo/servicios/desactivarPuesto.php?id_puesto=<?= $post->id_puesto; ?>" class="btn btn-danger">Desactivar</a>
+                        <?php else : ?>
+                            <a href="../../PuestoElectivo/servicios/activarPuesto.php?id_puesto=<?= $post->id_puesto; ?>" class="btn btn-danger">Activar</a>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

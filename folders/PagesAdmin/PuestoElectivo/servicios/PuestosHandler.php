@@ -13,6 +13,36 @@ class PuestosHandler implements IDataBaseHandler
         $this->connection = new databaseConnection($directory);
     }
 
+    function getAll()
+    {
+
+        $tableList = array();
+
+        $stm = $this->connection->db->prepare('Select * FROM Puestos');
+        $stm->execute();
+
+        $result = $stm->get_result();
+
+        if ($result->num_rows === 0) {
+
+            return $tableList;
+        } else {
+            while ($row = $result->fetch_object()) {
+                $user = new Puestos();
+
+                $user->id_puesto = $row->id_puesto;
+                $user->nombre = $row->nombre;
+                $user->descripcion = $row->descripcion;
+                $user->estado = $row->estado;
+
+                array_push($tableList, $user);
+            }
+
+            $stm->close();
+            return $tableList;
+        }
+    }
+
     function getActive()
     {
 

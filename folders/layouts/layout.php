@@ -20,7 +20,7 @@ class Layout {
         if($this->type == false) {
             $this->menu = <<<EOF
             <li class="nav-item">
-        <a class="nav-link" href="{$this->directory}index.php">
+        <a class="nav-link" href="{$this->directory}folders\PagesAdmin\PuestoElectivo/vistas\PuestoElectivo.php">
         <span data-feather="file"></span> Puesto Electivo
         </a>
         </li>
@@ -31,7 +31,7 @@ class Layout {
         </a>
         </li>
         <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{$this->directory}folders\PagesAdmin\Ciudadanos/vistas\CiudadanosAdmin.php">
         <span data-feather="users"></span> Ciudadanos
         </a>
         </li>

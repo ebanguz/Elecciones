@@ -40,7 +40,7 @@ if(isset($_GET['id_puesto'])) {
                 $data->Edit($puesto);
                 echo "<script> alert('El puesto ha sido añadido correctamente.'); </script>";
         
-                header('Location: ../../Login/vista/Administracion.php');
+                header('Location: PuestoElectivo.php');
             }
         }
     }

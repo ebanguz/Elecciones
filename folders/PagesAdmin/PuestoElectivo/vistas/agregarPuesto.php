@@ -31,7 +31,7 @@ if(isset($_POST['nombre']) && isset($_POST['descripcion'])) {
         $data->add($puesto);
         echo "<script> alert('El puesto ha sido añadido correctamente.'); </script>";
 
-        header('Location: ../../Login/vista/Administracion.php');
+        header('Location: PuestoElectivo.php');
     }
 }
 
