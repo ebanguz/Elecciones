@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `elecciones`.`Ciudadanos` (
   `cedula` VARCHAR(20) NOT NULL,
   `nombre` VARCHAR(45) NOT NULL,
   `apellido` VARCHAR(45) NOT NULL,
-  `email` VARCHAR(20) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
   `estado` TINYINT NOT NULL DEFAULT 0,
   PRIMARY KEY (`cedula`))
 ENGINE = InnoDB;
@@ -161,3 +161,6 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+INSERT INTO ciudadanos(cedula,nombre,apellido,email,estado) VALUES ('001-45464-8','Leonardo','Tavarez','leonardotavarez@gmail.com',1);
+INSERT INTO administracion(usuario,clave,nombre,apellido,cedula) VALUES ('Leonardo','123123','Leonardo','Tavarez','001-45464-8');
