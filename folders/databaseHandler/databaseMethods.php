@@ -221,53 +221,6 @@ class DataBaseMethods
         $stm->execute();
     }
 
-    private function uploadFile($name, $timeFile)
-    {
-
-        if (file_exists($name)) {
-
-            unlink($name);
-        }
-
-        move_uploaded_file($timeFile, $name);
-    }
-
-    public function uploadImage($directory, $name, $timeFile, $type, $size)
-    {
-
-        $isSucess = false;
-        if (($type == "image/gif")
-            || ($type == "image/jpeg")
-            || ($type == "image/png")
-            || ($type == "image/jpg")
-            || ($type == "image/JPG")
-            || ($type == "image/jfif")
-            || ($type == "image/pjpeg") && ($size < 1000000)
-        ) {
-
-
-            if (!file_exists($directory)) {
-
-                mkdir($directory, 0777, true);
-
-                if (file_exists($directory)) {
-
-                    $this->uploadFile($directory . $name, $timeFile);
-                    $isSucess = true;
-                }
-            } else {
-
-                $this->uploadFile($directory . $name, $timeFile);
-                $isSucess = true;
-            }
-        } else {
-
-            $isSucess = false;
-        }
-
-        return $isSucess;
-    }
-
     public function getPartidosActives()
     {
 

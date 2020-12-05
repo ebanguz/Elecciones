@@ -2,7 +2,9 @@
 
 require_once '../../../layouts/layout.php';
 require_once '../../../helpers/FileHandler/JsonFileHandler.php';
-require_once '../../../databaseHandler/databaseMethods.php';
+require_once '../../../iDataBase/IDatabase.php';
+require_once '../../Partidos/servicios/PartidosHandler.php';
+require_once '../../PuestoElectivo/servicios/PuestosHandler.php';
 require_once '../../../objects/Puestos.php';
 require_once '../../../objects/Partidos.php';
 require_once '../../../objects/Candidatos.php';
@@ -10,9 +12,10 @@ require_once '../../../objects/Candidatos.php';
 session_start();
 
 $layout = new Layout(true, 'Agregar Candidato', false);
-$data = new DataBaseMethods('../../../databaseHandler');
-$partidos = $data->getPartidosActives();
-$puestos = $data->getPuestosActivos();
+$dataPartidos = new PartidosHandler('../../../databaseHandler');
+$dataPuestos = new PuestosHandler('../../../databaseHandler');
+$partidos = $dataPartidos->getActive();
+$puestos = $dataPuestos->getActive();
 
 if (isset($_SESSION['administracion'])) {
     $administrador = json_decode($_SESSION['administracion']);
@@ -26,14 +29,7 @@ if(isset($_POST['nombre']) && isset($_POST['descripcion']) && isset($_FILES['log
 
     } else {
 
-        $partido = new Partidos();
-        $partido->nombre = $_POST['nombre'];
-        $partido->descripcion = $_POST['descripcion'];
-
-        $data->AddPartido($partido);
-        echo "<script> alert('El puesto ha sido añadido correctamente.'); </script>";
-
-        header('Location: ../../Login/vista/Administracion.php');
+        ///CRUD para agregar candidato a la base de datos.
     }
 }
 

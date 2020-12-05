@@ -2,12 +2,13 @@
 
 require_once '../../../layouts/layout.php';
 require_once '../../../helpers/FileHandler/JsonFileHandler.php';
-require_once '../../../databaseHandler/databaseMethods.php';
+require_once '../../../iDataBase/IDatabase.php';
+require_once '../servicios/AdministrationHandler.php';
 require_once '../../../objects/Administrador.php';
 
 session_start();
 
-$getUser = new DataBaseMethods('../../../databaseHandler');
+$getUser = new AdministrationHandler('../../../databaseHandler');
 
 if(isset($_SESSION['administracion'])) {
 

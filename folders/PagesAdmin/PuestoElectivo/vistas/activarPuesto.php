@@ -2,7 +2,8 @@
 
 require_once '../../../layouts/layout.php';
 require_once '../../../helpers/FileHandler/JsonFileHandler.php';
-require_once '../../../databaseHandler/databaseMethods.php';
+require_once '../../../iDataBase/IDatabase.php';
+require_once '../../PuestoElectivo/servicios/PuestosHandler.php';
 require_once '../../../objects/Puestos.php';
 
 session_start();
@@ -14,14 +15,14 @@ if (isset($_SESSION['administracion'])) {
 }
 
 $layout = new Layout(true, 'Activar Puesto', false);
-$data = new DataBaseMethods('../../../databaseHandler');
-$puestos = $data->getPuestosInactivos();
+$data = new PuestosHandler('../../../databaseHandler');
+$puestos = $data->getInactive();
 
 if(isset($_GET['id_puesto'])) {
 
     $idPuesto = $_GET['id_puesto'];
 
-    $data->HabilitarPuesto($idPuesto);
+    $data->Habilitar($idPuesto);
 
     header('Location: activarPuesto.php');
 }

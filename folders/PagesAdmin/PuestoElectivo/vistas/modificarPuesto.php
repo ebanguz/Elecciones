@@ -2,13 +2,14 @@
 
 require_once '../../../layouts/layout.php';
 require_once '../../../helpers/FileHandler/JsonFileHandler.php';
-require_once '../../../databaseHandler/databaseMethods.php';
+require_once '../../../iDataBase/IDatabase.php';
+require_once '../../PuestoElectivo/servicios/PuestosHandler.php';
 require_once '../../../objects/Puestos.php';
 
 session_start();
 
 $layout = new Layout(true, 'Modificar Puesto', false);
-$data = new DataBaseMethods('../../../databaseHandler');
+$data = new PuestosHandler('../../../databaseHandler');
 
 if (isset($_SESSION['administracion'])) {
     $administrador = json_decode($_SESSION['administracion']);
@@ -19,7 +20,7 @@ if (isset($_SESSION['administracion'])) {
 if(isset($_GET['id_puesto'])) {
 
     $idPuesto = $_GET['id_puesto'];
-    $puestoCharge = $data->getPuestoById($idPuesto);
+    $puestoCharge = $data->getById($idPuesto);
 
     if(isset($_POST['nombre']) && isset($_POST['descripcion'])) {
 
@@ -36,7 +37,7 @@ if(isset($_GET['id_puesto'])) {
                 $puesto->nombre = $_POST['nombre'];
                 $puesto->descripcion = $_POST['descripcion'];
         
-                $data->EditPuesto($puesto);
+                $data->Edit($puesto);
                 echo "<script> alert('El puesto ha sido añadido correctamente.'); </script>";
         
                 header('Location: ../../Login/vista/Administracion.php');
