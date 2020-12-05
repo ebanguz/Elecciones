@@ -1,20 +1,19 @@
 <?php
 
-require_once '../../../layouts/layout.php';
+    require_once '../../../layouts/layout.php';
 
-session_start();
+    session_start();
 
-if(isset($_SESSION['administracion'])) {
+    if (isset($_SESSION['administracion'])) {
 
-    header('Location: ../../../PagesAdmin/Login/vista\Administracion.php');
-}
+        header('Location: ../../../PagesAdmin/Login/vista/Administracion.php');
+    }
 
-
-$layout = new Layout(true, 'Log in',true);
+    $layout = new Layout(true, 'Log in', true);
 
 ?>
 
-<?php $layout->Header(); ?>
+<?php $layout->Header();?>
 
 <br>
 <br>
@@ -35,4 +34,4 @@ $layout = new Layout(true, 'Log in',true);
     <div class="col-md-4"></div>
 </div>
 
-<?php $layout->Footer(); ?>
+<?php $layout->Footer();?>
