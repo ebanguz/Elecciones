@@ -11,13 +11,14 @@
     require_once '../servicios/CandidatosHandler.php';
 
     session_start();
-
-    $layout       = new Layout(true, 'Agregar Candidato', false);
+    //Aca pueden el editar
+    $layout       = new Layout(true, 'Edición del Candidato', false);
     $dataPartidos = new PartidosHandler('../../../databaseHandler');
     $dataPuestos  = new PuestosHandler('../../../databaseHandler');
     $service      = new CandidatosHandler('../../../databaseHandler');
-    $partidos     = $dataPartidos->getActive();
-    $puestos      = $dataPuestos->getActive();
+
+    $partidos = $dataPartidos->getActive();
+    $puestos  = $dataPuestos->getActive();
 
     if (isset($_SESSION['administracion'])) {
         $administrador = json_decode($_SESSION['administracion']);
@@ -25,24 +26,37 @@
         header('Location: ../../Login/vista/loginAdministracion.php');
     }
 
-    if (isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['id_partido']) && isset($_POST['id_puesto']) && isset($_FILES['fotoperfil'])) {
+    if (isset($_GET['id'])) {
+        $idCandidato     = $_GET['id'];
+        $candidatoCharge = $service->getById($idCandidato);
+        $estado          = $candidatoCharge->estado;
+    }
+    // ese id_candidato y estado q envie por POST, lo hice para q la consulta lo supiera. Ya que no lo podia coger
+    // por GET. porque el POST lo sobreescribia
+    if (isset($_POST['id_candidato']) && isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['id_partido']) && isset($_POST['id_puesto']) && isset($_POST['estado'])) {
 
         if (($_POST['nombre']) == "" || ($_POST['apellido']) == "" || ($_POST['id_partido']) == "" || ($_POST['id_puesto']) == "" || ($_FILES['fotoperfil']) == "") {
             echo "<script> alert('Llene los espacios en blanco.'); </script>";
 
         } else {
-            $CA = new Candidatos();
-            $CA->InizializeData(0, $_POST['nombre'], $_POST['apellido'], $_POST['id_partido'], $_POST['id_puesto'], $_FILES['fotoperfil'], 1);
-            // var_dump($CA);
-            $service->Add($CA);
 
+            $CA = new Candidatos();
+
+            $CA->id_candidato = $_POST['id_candidato'];
+            $CA->nombre       = $_POST['nombre'];
+            $CA->apellido     = $_POST['apellido'];
+            $CA->id_partido   = $_POST['id_partido'];
+            $CA->id_puesto    = $_POST['id_puesto'];
+            $CA->foto_perfil  = $_FILES['fotoperfil'];
+            $CA->estado       = $_POST['estado'];
+
+            $service->Edit($CA);
             header("Location: candidatoIndex.php");
             exit();
-            ///CRUD para agregar candidato a la base de datos.
         }
+
     }
 
-    //name, apellido, id_partido, id_puesto, fotoperfil
 ?>
 
 <?php $layout->Header();?>
@@ -50,18 +64,21 @@
 <div class="row" style="margin: auto auto auto 20%; width:auto">
     <div class="col-md"></div>
     <div class="col-md-8">
-        <!-- <img class="mb-4" src="../../../assets/images/web/puesto.jfif" alt="" width="350" height="120"> -->
+        <form enctype="multipart/form-data" action="editarCandidato.php" method="POST">
+            <input type="hidden" name='id_candidato' value="<?=$idCandidato;?>">
+            <!-- Este input es simplemente para enviar por POST lo q explicaba mas arriba -->
 
-        <form enctype="multipart/form-data" action='agregarCandidato.php' method="POST">
             <div class="form-group">
                 <label for="nombrecandidato">Nombre del Candidato</label>
                 <input type="text" class="form-control" id="nombrecandidato"
-                    placeholder="Ingrese el nombre del nuevo candidato" name='nombre'>
+                    placeholder="Ingrese el nombre del nuevo candidato" name='nombre'
+                    value="<?=$candidatoCharge->nombre;?>">
             </div>
             <div class="form-group">
                 <label for="apellidocandidato">Apellido del Candidato</label>
                 <input type="text" class="form-control" id="apellidocandidato"
-                    placeholder="Ingrese el apellido del nuevo candidato" name='apellido'>
+                    placeholder="Ingrese el apellido del nuevo candidato" name='apellido'
+                    value="<?=$candidatoCharge->apellido;?>">
             </div>
             <div class="form-group">
                 <label for="name">Partido</label>
@@ -69,7 +86,7 @@
 
                     <?php foreach ($partidos as $parts): ?>
 
-                    <option value='<?=$parts->id_partido;?>'><?=$parts->nombre;?></option>
+                    <option value='<?=$candidatoCharge->id_partido;?>'><?=$parts->nombre;?></option>
 
                     <?php endforeach;?>
                 </select>
@@ -79,17 +96,22 @@
                 <select class="form-control" name="id_puesto" id="id_puesto">
                     <?php foreach ($puestos as $post): ?>
 
-                    <option value='<?=$post->id_puesto;?>'><?=$post->nombre;?></option>
+                    <option value='<?=$candidatoCharge->id_puesto;?>'><?=$post->nombre;?></option>
 
                     <?php endforeach;?>
                 </select>
             </div>
             <div class="form-group">
-                <label for="logo">Foto de perfil:</label>
+                <label for="logo">Foto de perfil: </label>
+                <img src="<?php echo "../../../assets/images/candidatos/" . $candidatoCharge->foto_perfil ?>"
+                    class="card-img-top" alt="." style="margin:1% 0; width:30rem; display:block">
                 <input type="file" class="form-control" id="fotoperfil" name="fotoperfil">
+
             </div>
+            <input type="hidden" name='estado' value="<?=$estado;?>">
+            <!-- Este input es simplemen para enviar por POST lo q explicaba mas arriba -->
             <div class="form-group">
-                <button class="btn btn-lg btn-danger btn-block" type="submit">Agregar</button>
+                <button class="btn btn-lg btn-danger btn-block" type="submit">Editar</button>
             </div>
         </form>
     </div>

@@ -26,7 +26,7 @@ class Layout {
         </li>
 
         <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{$this->directory}folders\PagesAdmin\Candidatos/vistas\candidatoIndex.php">
         <span data-feather="users"></span> Candidatos
         </a>
         </li>
