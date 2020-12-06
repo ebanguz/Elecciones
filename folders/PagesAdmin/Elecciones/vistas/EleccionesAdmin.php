@@ -6,6 +6,7 @@ require_once '../../../iDataBase/IDatabase.php';
 require_once '../servicios/EleccionesHandler.php';
 require_once '../../Candidatos/servicios/CandidatosHandler.php';
 require_once '../../Partidos/servicios/PartidosHandler.php';
+require_once '../../PuestoElectivo/servicios/PuestosHandler.php';
 require_once '../../../objects/Elecciones.php';
 require_once '../../../objects/EleccionesAuditoria.php';
 require_once '../../../objects/Candidatos.php';
@@ -37,7 +38,7 @@ $eleccionesCharge = $data->getAll();
 </div>
 <br>
 <br>
-<?php if ($puestosCiudadanos == "" || $puestosCiudadanos == null) : ?>
+<?php if ($eleccionesCharge == "" || $eleccionesCharge == null) : ?>
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-4">

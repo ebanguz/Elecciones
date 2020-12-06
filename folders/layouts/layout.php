@@ -36,7 +36,7 @@ class Layout {
         </a>
         </li>
         <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{$this->directory}folders\PagesAdmin\Elecciones/vistas\EleccionesAdmin.php">
         <span data-feather="bar-chart-2"></span> Elecciones
         </a>
         </li>
