@@ -140,18 +140,15 @@ class EleccionesHandler implements IDataBaseHandler
 
         if ($result->num_rows === 0) {
 
-            return $tableList;
+            return false;
         } else {
-            while ($row = $result->fetch_object()) {
-                $user = new EleccionesAuditoria();
+            $row = $result->fetch_object();
+            $user = new EleccionesAuditoria();
 
-                $user->total = $row->total;
-
-                array_push($tableList, $user);
-            }
+            $user->total = $row->total;
 
             $stm->close();
-            return $tableList;
+            return $user;
         }
     }
 
