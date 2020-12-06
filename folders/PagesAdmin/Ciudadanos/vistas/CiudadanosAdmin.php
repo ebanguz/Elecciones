@@ -47,7 +47,7 @@ $puestosCiudadanos = $dataCiudadanos->getAll();
                         <?php if ($post->estado == 1) : ?>
                             <a href="../servicios/desactivarCiudadano.php?cedula=<?= $post->cedula; ?>" class="btn btn-danger">Desactivar</a>
                         <?php else : ?>
-                            <a href="../servicios/activarCiudadano.php?cedula=<?= $post->cedula; ?>" class="btn btn-danger">Activar</a>
+                            <a href="../servicios/activarCiudadano.php?cedula=<?= $post->cedula; ?>" class="btn btn-dark">Activar</a>
                         <?php endif; ?>
                     </div>
                 </div>

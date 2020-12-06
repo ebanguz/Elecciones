@@ -41,7 +41,7 @@ class Layout {
         </a>
         </li>
         <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{$this->directory}folders\PagesAdmin\Partidos/vistas\PartidoAdministracion.php">
         <span data-feather="layers"></span> Partidos
         </a>
         </li>
@@ -121,10 +121,10 @@ class Layout {
 
 
     </body></html>
-    <script src="{$this->directory}folders/js/librarys/jquery/jquery-3.5.1.min.js"></script>
-    <script src="{$this->directory}folders/js/librarys/bootstrap/bootstrap.min.jss"></script>
+    <script src="{$this->directory}folders\js\librarys\jquery\jquery-3.5.1.min.js"></script>
+    <script src="{$this->directory}folders\js\librarys\bootstrap\bootstrap.min.js"></script>
     <script src="{$this->directory}folders/js/librarys/toastr/toastr.min.js"></script>
-    <script src="{$this->directory}folders\js\librarys\dashboard.js"></script>
+    <script src="{$this->directory}folders\js\librarys\jquery\jquery-3.5.1.min.js"></script>
     EOF;
 
         echo $footer;

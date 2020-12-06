@@ -13,6 +13,37 @@ class PartidosHandler implements IDataBaseHandler
         $this->connection = new databaseConnection($directory);
     }
 
+    function getAll()
+    {
+
+        $tableList = array();
+
+        $stm = $this->connection->db->prepare('Select * FROM Partidos');
+        $stm->execute();
+
+        $result = $stm->get_result();
+
+        if ($result->num_rows === 0) {
+
+            return $tableList;
+        } else {
+            while ($row = $result->fetch_object()) {
+                $user = new Partidos();
+
+                $user->id_partido = $row->id_partido;
+                $user->nombre = $row->nombre;
+                $user->descripcion = $row->descripcion;
+                $user->logo = $row->logo;
+                $user->estado = $row->estado;
+
+                array_push($tableList, $user);
+            }
+
+            $stm->close();
+            return $tableList;
+        }
+    }
+
     function getActive()
     {
 
@@ -50,6 +81,30 @@ class PartidosHandler implements IDataBaseHandler
 
     function getById($id)
     {
+        $tableList = array();
+
+        $stm = $this->connection->db->prepare('Select * FROM Partidos where id_partido = ?');
+        $stm->bind_param('i', $id);
+        $stm->execute();
+
+        $result = $stm->get_result();
+
+        if ($result->num_rows === 0) {
+
+            return $tableList;
+        } else {
+            $row = $result->fetch_object(); 
+            $user = new Partidos();
+
+            $user->id_partido = $row->id_partido;
+            $user->nombre = $row->nombre;
+            $user->descripcion = $row->descripcion;
+            $user->logo = $row->logo;
+            $user->estado = $row->estado;
+            
+            $stm->close();
+            return $user;
+        }
     }
 
     function Add($entity)
@@ -84,14 +139,22 @@ class PartidosHandler implements IDataBaseHandler
 
     function Habilitar($id)
     {
-        $stm = $this->connection->db->prepare('update Partidos set estado = false where id_partido = ?');
+        $stm = $this->connection->db->prepare('update Partidos set estado = true where id_partido = ?');
+        $stm->bind_param('i', $id);
+        $stm->execute();
+
+        $stm = $this->connection->db->prepare('update Candidatos set estado = true where id_partido = ?');
         $stm->bind_param('i', $id);
         $stm->execute();
     }
 
     function Deshabilitar($id)
     {
-        $stm = $this->connection->db->prepare('update Partidos set estado = true where id_partido = ?');
+        $stm = $this->connection->db->prepare('update Partidos set estado = false where id_partido = ?');
+        $stm->bind_param('i', $id);
+        $stm->execute();
+
+        $stm = $this->connection->db->prepare('update Candidatos set estado = false where id_partido = ?');
         $stm->bind_param('i', $id);
         $stm->execute();
     }
@@ -122,7 +185,7 @@ class PartidosHandler implements IDataBaseHandler
         }
 
         $stm = $this->connection->db->prepare('update partidos set nombre = ?, descripcion = ?, logo = ? where id_partido = ?');
-        $stm->bind_param('ssso', $entity->nombre, $entity->descripcion, $entity->logo, $entity->id_partido);
+        $stm->bind_param('sssi', $entity->nombre, $entity->descripcion, $entity->logo, $entity->id_partido);
         $stm->execute();
     }
 

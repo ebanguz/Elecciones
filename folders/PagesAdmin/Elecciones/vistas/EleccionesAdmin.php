@@ -33,7 +33,11 @@ $eleccionesCharge = $data->getAll();
 <?php $layout->Header(); ?>
 <div class="row">
     <div class="col-md-3"></div>
+    <?php if(isset($_SESSION['elecciones'])): ?>
+        <div class="col-md-2"><a class="btn btn-danger" href="terminarElecciones.php">Terminar elecciones.</a></div>
+    <?php else: ?>
     <div class="col-md-2"><a class="btn btn-danger" href="iniciarElecciones.php">Iniciar elecciones.</a></div>
+    <?php endif; ?>
     <div class="col-md-8"></div>
 </div>
 <br>

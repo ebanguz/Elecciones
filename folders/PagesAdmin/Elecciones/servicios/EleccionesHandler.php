@@ -165,10 +165,68 @@ class EleccionesHandler implements IDataBaseHandler
 
     function getById($id)
     {
+        $tableList = array();
+
+        $stm = $this->connection->db->prepare('Select * FROM Elecciones WHERE id_elecciones = ?');
+        $stm->bind_param('i', $id);
+        $stm->execute();
+
+        $result = $stm->get_result();
+
+        if ($result->num_rows === 0) {
+
+            return $tableList;
+        } else {
+            $row = $result->fetch_object(); 
+            $user = new Elecciones();
+
+            $user->id_elecciones = $row->id_elecciones;
+            $user->nombre = $row->nombre;
+            $user->fecha = $row->fecha;
+            $user->estado = $row->estado;
+            
+
+            $stm->close();
+            return $user;
+        }
+    }
+
+    function getByName($name)
+    {
+        $tableList = array();
+
+        $stm = $this->connection->db->prepare('Select * FROM Elecciones WHERE nombre = ?');
+        $stm->bind_param('s', $name);
+        $stm->execute();
+
+        $result = $stm->get_result();
+
+        if ($result->num_rows === 0) {
+
+            return $tableList;
+        } else {
+            $row = $result->fetch_object(); 
+            $user = new Elecciones();
+
+            $user->id_elecciones = $row->id_elecciones;
+            $user->nombre = $row->nombre;
+            $user->fecha = $row->fecha;
+            $user->estado = $row->estado;
+            
+
+            $stm->close();
+            return $user;
+        }
     }
 
     function Add($entity)
     {
+        $stm = $this->connection->db->prepare('insert into Elecciones(nombre) VALUES(?)');
+        $stm->bind_param('s', $entity);
+        $stm->execute();
+        
+        $ultimateId = $this->connection->db->insert_id;
+        header('Location: ../vistas/iniciarElecciones.php?ultimate_id='.$ultimateId);
     }
 
     function Habilitar($id)

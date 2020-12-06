@@ -52,7 +52,7 @@ $puestos = $dataPuestos->getAll();
                         <?php if ($post->estado == 1) : ?>
                             <a href="../../PuestoElectivo/servicios/desactivarPuesto.php?id_puesto=<?= $post->id_puesto; ?>" class="btn btn-danger">Desactivar</a>
                         <?php else : ?>
-                            <a href="../../PuestoElectivo/servicios/activarPuesto.php?id_puesto=<?= $post->id_puesto; ?>" class="btn btn-danger">Activar</a>
+                            <a href="../../PuestoElectivo/servicios/activarPuesto.php?id_puesto=<?= $post->id_puesto; ?>" class="btn btn-dark">Activar</a>
                         <?php endif; ?>
                     </div>
                 </div>
