@@ -64,6 +64,7 @@ $eleccionesCharge = $data->getAll();
                             <th scope="col">Partidos</th>
                             <th scope="col">Puestos</th>
                             <th scope="col">Votos totales</th>
+                            <th scope="col">Porcentaje</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -90,9 +91,14 @@ $eleccionesCharge = $data->getAll();
                                         ?>
 
                                         <?php $currentVotosTotales = $data->getEleccionesVotoTotal($eleccion->id_elecciones, $candID); ?>
-                                        <?php foreach ($currentVotosTotales as $votosTotales) : ?>
-                                            <td><?= $votosTotales; ?></td>
-                                        <?php endforeach; ?>
+                                        
+                                            <td><?= $currentVotosTotales->total; ?></td>
+
+                                            <?php $currentVotosPorcentaje = $data->getEleccionesContByID($eleccion->id_elecciones); ?>
+                                            
+                                                <td><?= $currentVotosTotales->total * $currentVotosPorcentaje->total / 100 ?>%</td>
+                                            
+                                        
                                     <?php endforeach; ?>
                                 <?php endforeach; ?>
                             <?php endforeach; ?>

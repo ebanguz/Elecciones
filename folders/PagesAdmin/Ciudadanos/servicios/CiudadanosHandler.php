@@ -44,6 +44,34 @@ class CiudadanosHandler implements IDataBaseHandler
         }
     }
 
+    function getCiudadanoByCedula($cedula)
+    {
+
+        $stm = $this->connection->db->prepare('Select * FROM Ciudadanos');
+        $stm->execute();
+
+        $result = $stm->get_result();
+
+        if ($result->num_rows === 0) {
+
+        } else {
+                $row = $result->fetch_object();
+                $user = new Ciudadanos();
+
+                $user->cedula = $row->cedula;
+                $user->nombre = $row->nombre;
+                $user->apellido = $row->apellido;
+                $user->email = $row->email;
+                $user->estado = $row->estado;
+
+                
+            
+
+            $stm->close();
+            return $user;
+        }
+    }
+
     function getActive()
     {
     }

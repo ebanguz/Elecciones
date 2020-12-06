@@ -98,6 +98,28 @@ class EleccionesHandler implements IDataBaseHandler
             return $tableList;
         }
     }
+    function getEleccionesContByID($idElecciones)
+    {
+
+        $stm = $this->connection->db->prepare('Select count(*) as total FROM Elecciones_cont WHERE id_elecciones = ?');
+        $stm->bind_param('i', $idElecciones);
+        $stm->execute();
+
+        $result = $stm->get_result();
+
+        if ($result->num_rows === 0) {
+
+            return false;
+        } else {
+            $row = $result->fetch_object();
+            $user = new EleccionesAuditoria();
+
+            $user->total = $row->total;
+
+            $stm->close();
+            return $user;
+        }
+    }
 
     function getEleccionesPuestos($idElecciones, $idCandidato)
     {
@@ -129,8 +151,6 @@ class EleccionesHandler implements IDataBaseHandler
 
     function getEleccionesVotoTotal($idElecciones, $idCandidato)
     {
-
-        $tableList = array();
 
         $stm = $this->connection->db->prepare('Select count(*) as total FROM Elecciones_cont WHERE id_elecciones = ? and id_candidato = ?');
         $stm->bind_param('ii', $idElecciones, $idCandidato);
@@ -174,14 +194,14 @@ class EleccionesHandler implements IDataBaseHandler
 
             return $tableList;
         } else {
-            $row = $result->fetch_object(); 
+            $row = $result->fetch_object();
             $user = new Elecciones();
 
             $user->id_elecciones = $row->id_elecciones;
             $user->nombre = $row->nombre;
             $user->fecha = $row->fecha;
             $user->estado = $row->estado;
-            
+
 
             $stm->close();
             return $user;
@@ -202,14 +222,14 @@ class EleccionesHandler implements IDataBaseHandler
 
             return $tableList;
         } else {
-            $row = $result->fetch_object(); 
+            $row = $result->fetch_object();
             $user = new Elecciones();
 
             $user->id_elecciones = $row->id_elecciones;
             $user->nombre = $row->nombre;
             $user->fecha = $row->fecha;
             $user->estado = $row->estado;
-            
+
 
             $stm->close();
             return $user;
@@ -221,9 +241,9 @@ class EleccionesHandler implements IDataBaseHandler
         $stm = $this->connection->db->prepare('insert into Elecciones(nombre) VALUES(?)');
         $stm->bind_param('s', $entity);
         $stm->execute();
-        
+
         $ultimateId = $this->connection->db->insert_id;
-        header('Location: ../vistas/iniciarElecciones.php?ultimate_id='.$ultimateId);
+        header('Location: ../vistas/iniciarElecciones.php?ultimate_id=' . $ultimateId);
     }
 
     function Habilitar($id)
@@ -238,3 +258,4 @@ class EleccionesHandler implements IDataBaseHandler
     {
     }
 }
+?>

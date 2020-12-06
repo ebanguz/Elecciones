@@ -1,6 +1,10 @@
 <?php
 
 require_once '../../../layouts/layout.php';
+require_once '../../../helpers/FileHandler/JsonFileHandler.php';
+require_once '../../../iDataBase/IDatabase.php';
+require_once '../../../objects/Ciudadanos.php';
+require_once '../../../PagesAdmin/Ciudadanos/servicios/CiudadanosHandler.php';
 
 session_start();
 
@@ -9,8 +13,30 @@ if (isset($_SESSION['administracion'])) {
     header('Location: ../../../PagesAdmin/Login/vista/Administracion.php');
 }
 
-$layout = new Layout(true, 'Log in', true);
+if (isset($_SESSION['ciudadano'])) {
 
+    header('Location: ../../../../index.php');
+}
+
+$layout = new Layout(true, 'Log in', true);
+$ciudadano = new CiudadanosHandler('../../../databaseHandler');
+
+if(isset($_POST['cedula'])) {
+
+    $currentCiudadano = $ciudadano->getCiudadanoByCedula($_POST['cedula']);
+    if(isset($_SESSION['elecciones'])) {
+
+        if($currentCiudadano == true) {
+            $_SESSION['ciudadano'] = json_encode($currentCiudadano);
+    
+            header('Location: ../../../../index.php');
+        }
+
+    } else {
+        echo '<script>alert("No hay elecciones activas.")</script>';
+    }
+
+} 
 ?>
 
 <?php $layout->Header(); ?>
