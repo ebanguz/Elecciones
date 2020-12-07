@@ -12,6 +12,4 @@ Usuario: Leonardo.
 
 Contraseña: 123123.
 
-Se estará actualizando para arreglar algunas cosas.
-
 la rama por defecto es candidatos.
