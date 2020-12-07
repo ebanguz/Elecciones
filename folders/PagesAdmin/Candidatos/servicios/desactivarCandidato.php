@@ -5,7 +5,8 @@ require_once '../../../iDataBase/IDatabase.php';
 
 require_once 'CandidatosHandler.php';
 
-require_once 'Candidatos.php';
+require_once '../../../helpers/FileHandler/JsonFileHandler.php';
+require_once '../../../objects/Candidatos.php';
 
 require_once '../../../helpers/FileHandler/JsonFileHandler.php';
 require_once '../../../iDataBase/IDatabase.php';

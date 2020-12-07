@@ -12,13 +12,11 @@ require_once '../../../iDataBase/IDatabase.php';
 
 session_start();
 
-if (isset($_SESSION['administracion'])) {
-    $administrador = json_decode($_SESSION['administracion']);
-} else {
-    header('Location: ../../Login/vista/loginAdministracion.php');
+if(isset($_SESSION['cuidadano'])) {
+    $currentCiudadano = json_encode($_SESSION['cuidadano']);
 }
 
-$layout = new Layout(true, 'Candidatos', false);
+$layout = new Layout(true, 'Candidatos', true);
 $data   = new CandidatosHandler('../../../databaseHandler');
 $dataPartido = new PartidosHandler('../../../databaseHandler');
 $dataPuesto = new PuestosHandler('../../../databaseHandler');
@@ -67,17 +65,16 @@ if (isset($_GET['id_puesto'])) {
                             <h5 class="card-title"><?php echo $candidato->apellido; ?></h5>
                             <h6 class="card-subtitle mb-2 text-muted"><?php echo $candidato->nombre; ?></h6>
                             <p class="card-text">Postula como <?= $dataPuesto->getById($candidato->id_puesto)->nombre; ?> para el
-                                partido <?= $dataPartido->getById($candidato->id_partido)->nombre; ?> y se
-                                encuentra<?php echo $message; ?></p>
-                            <a href="editarCandidato.php?id=<?php echo $candidato->id_candidato; ?>" class="btn text-primary">Editar</a>
+                                partido <?= $dataPartido->getById($candidato->id_partido)->nombre; ?>
+                            </p>
+                            <a href="votar.php?id_candidato=<?php echo $candidato->id_candidato; ?>" class="btn text-primary">Votar</a>
 
-                            <a href="../servicios/<?php echo $directorio . $candidato->id_candidato; ?>" class="btn btn-primary"><?php echo $btnActivar ?></a>
                         </div>
                     </div>
                 </div>
 
             <?php endforeach; ?>
-            <a href="agregarCandidato.php" type="submit" class="btn btn-primary btn-lg btn-block my-5">Agregar candidato</a>
+            
 
         <?php endif; ?>
         <?php ?>

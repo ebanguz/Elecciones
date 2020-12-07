@@ -117,7 +117,7 @@ class EleccionesHandler implements IDataBaseHandler
             $user->total = $row->total;
 
             $stm->close();
-            return $user;
+            return $user->total;
         }
     }
 
@@ -152,7 +152,7 @@ class EleccionesHandler implements IDataBaseHandler
     function getEleccionesVotoTotal($idElecciones, $idCandidato)
     {
 
-        $stm = $this->connection->db->prepare('Select count(*) as total FROM Elecciones_cont WHERE id_elecciones = ? and id_candidato = ?');
+        $stm = $this->connection->db->prepare('Select count(*) as total FROM Elecciones_cont WHERE id_elecciones = ? and id_candidato = ? ORDER BY total DESC');
         $stm->bind_param('ii', $idElecciones, $idCandidato);
         $stm->execute();
 
@@ -168,7 +168,8 @@ class EleccionesHandler implements IDataBaseHandler
             $user->total = $row->total;
 
             $stm->close();
-            return $user;
+
+            return $user->total;
         }
     }
 
@@ -244,6 +245,14 @@ class EleccionesHandler implements IDataBaseHandler
 
         $ultimateId = $this->connection->db->insert_id;
         header('Location: ../vistas/iniciarElecciones.php?ultimate_id=' . $ultimateId);
+    }
+
+    function AddAuditoria($idElecciones,$id_candidato,$id_partido,$id_puesto,$cedula)
+    {
+        $stm = $this->connection->db->prepare('insert into Elecciones_cont VALUES(?,?,?,?,?)');
+        $stm->bind_param('iiiis', $idElecciones,$id_candidato,$id_partido,$id_puesto,$cedula);
+        $stm->execute();
+
     }
 
     function Habilitar($id)

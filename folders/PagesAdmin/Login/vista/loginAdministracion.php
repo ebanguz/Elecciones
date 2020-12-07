@@ -33,7 +33,7 @@ if (isset($_POST['usuario']) && isset($_POST['clave'])) {
     }
 }
 
-$layout = new Layout(true, 'Log in Administración', false);
+$layout = new Layout(true, 'Log in Administración', true);
 
 ?>
 

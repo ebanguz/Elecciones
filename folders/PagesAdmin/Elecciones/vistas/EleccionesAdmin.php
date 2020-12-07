@@ -27,6 +27,15 @@ $dataCandidate = new CandidatosHandler('../../../databaseHandler');
 $dataPartido = new PartidosHandler('../../../databaseHandler');
 $dataPuesto = new PuestosHandler('../../../databaseHandler');
 $eleccionesCharge = $data->getAll();
+$interruptor = false;
+$CandidatosCount = $dataCandidate->getActiveAll();
+$PartidosCount = $dataPartido->getActive();
+$PuestosCount = $dataPuesto->getActive();
+
+if (count($CandidatosCount) > 2 && count($PartidosCount) > 2 && count($PuestosCount) > 2) {
+
+    $interruptor = true;
+}
 
 ?>
 
@@ -34,9 +43,11 @@ $eleccionesCharge = $data->getAll();
 <div class="row">
     <div class="col-md-3"></div>
     <?php if (isset($_SESSION['elecciones'])) : ?>
-        <div class="col-md-2"><a class="btn btn-danger" href="terminarElecciones.php">Terminar elecciones.</a></div>
-    <?php else : ?>
+        <div class="col-md-2"><a class="btn btn-danger" href="../servicios/terminarElecciones.php">Terminar elecciones.</a></div>
+    <?php elseif ($interruptor == true) : ?>
         <div class="col-md-2"><a class="btn btn-danger" href="iniciarElecciones.php">Iniciar elecciones.</a></div>
+    <?php elseif ($interruptor == false) : ?>
+        <h5>Debe tener al menos tres candidatos, partidos y puestos activos para iniciar una elección.</h3>
     <?php endif; ?>
     <div class="col-md-8"></div>
 </div>
@@ -71,34 +82,33 @@ $eleccionesCharge = $data->getAll();
                         <?php $currentCandidateId = $data->getEleccionesCandidates($eleccion->id_elecciones); ?>
                         <?php foreach ($currentCandidateId as $candID) : ?>
                             <tr>
-                                <?php $currentCandidate = $dataCandidate->getById($candID);
+                                <?php $currentCandidate = $dataCandidate->getById($candID->id_candidato);
                                 echo '<th scope="row">' . $currentCandidate->nombre . ' ' . $currentCandidate->apellido . '</th>';
 
                                 ?>
-                                <?php $currentPartidoId = $data->getEleccionesPartidos($eleccion->id_elecciones, $candID); ?>
+                                <?php $currentPartidoId = $data->getEleccionesPartidos($eleccion->id_elecciones, $candID->id_candidato); ?>
                                 <?php foreach ($currentPartidoId as $partID) : ?>
 
-                                    <?php $currentPartido = $dataPartido->getById($partID);
+                                    <?php $currentPartido = $dataPartido->getById($partID->id_partido);
                                     echo '<td>' . $currentPartido->nombre . '</td>';
 
                                     ?>
 
-                                    <?php $currentPuestoId = $data->getEleccionesPuestos($eleccion->id_elecciones, $candID); ?>
+                                    <?php $currentPuestoId = $data->getEleccionesPuestos($eleccion->id_elecciones, $candID->id_candidato); ?>
                                     <?php foreach ($currentPuestoId as $puestoId) : ?>
                                         <?php $currentPuesto = $dataPuesto->getById($puestoId);
                                         echo '<td>' . $currentPuesto->nombre . '</td>';
 
                                         ?>
 
-                                        <?php $currentVotosTotales = $data->getEleccionesVotoTotal($eleccion->id_elecciones, $candID); ?>
-                                        
-                                            <td><?= $currentVotosTotales->total; ?></td>
+                                        <?php $currentVotosTotales = $data->getEleccionesVotoTotal($eleccion->id_elecciones, $candID->id_candidato); ?>
 
-                                            <?php $currentVotosPorcentaje = $data->getEleccionesContByID($eleccion->id_elecciones); ?>
-                                            
-                                                <td><?= $currentVotosTotales->total * $currentVotosPorcentaje->total / 100 ?>%</td>
-                                            
-                                        
+                                        <td><?= $currentVotosTotales; ?></td>
+
+                                        <?php $currentVotosPorcentaje = $data->getEleccionesContByID($eleccion->id_elecciones); ?>
+                                        <td><?= $currentVotosTotales * 100 / $currentVotosPorcentaje; ?>%</td>
+
+
                                     <?php endforeach; ?>
                                 <?php endforeach; ?>
                             <?php endforeach; ?>

@@ -37,7 +37,7 @@ $partidosCharge = $dataPartidos->getAll();
 
     <?php else : ?>
         <?php foreach ($partidosCharge as $post) : ?>
-            <div class="col-md-2">
+            <div class="col-md-3">
 
                 <div class="card" style="width: 18rem;">
                     <img src="../../../assets/images/partidos/<?= $post->logo; ?>" class="card-img-top" alt="...">

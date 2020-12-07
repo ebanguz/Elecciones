@@ -2,9 +2,11 @@
 
 require_once '../../../layouts/layout.php';
 require_once '../../../helpers/FileHandler/JsonFileHandler.php';
+require_once '../../../databaseHandler/databaseConnection.php';
 require_once '../../../iDataBase/IDatabase.php';
 require_once '../../../objects/Ciudadanos.php';
 require_once '../../../PagesAdmin/Ciudadanos/servicios/CiudadanosHandler.php';
+require_once '../../../PagesAdmin/PuestoElectivo/servicios/PuestosHandler.php';
 
 session_start();
 
@@ -15,7 +17,7 @@ if (isset($_SESSION['administracion'])) {
 
 if (isset($_SESSION['ciudadano'])) {
 
-    header('Location: ../../../../index.php');
+    header('Location: ../../../PagesAdmin\PuestoElectivo\vistas\Votacion.php');
 }
 
 $layout = new Layout(true, 'Log in', true);
@@ -29,7 +31,7 @@ if(isset($_POST['cedula'])) {
         if($currentCiudadano == true) {
             $_SESSION['ciudadano'] = json_encode($currentCiudadano);
     
-            header('Location: ../../../../index.php');
+            header('Location: ../../../PagesAdmin\PuestoElectivo\vistas\Votacion.php');
         }
 
     } else {
@@ -37,6 +39,7 @@ if(isset($_POST['cedula'])) {
     }
 
 } 
+
 ?>
 
 <?php $layout->Header(); ?>

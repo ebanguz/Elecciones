@@ -8,13 +8,11 @@ require_once '../../../objects/Puestos.php';
 
 session_start();
 
-if (isset($_SESSION['administracion'])) {
-    $administrador = json_decode($_SESSION['administracion']);
-} else {
-    header('Location: ../../Login/vista/loginAdministracion.php');
+if(isset($_SESSION['cuidadano'])) {
+    $currentCiudadano = json_encode($_SESSION['cuidadano']);
 }
 
-$layout = new Layout(true, 'Puesto Electivo', false);
+$layout = new Layout(true, 'Puesto Electivo', true);
 $dataPuestos = new PuestosHandler('../../../databaseHandler');
 $puestos = $dataPuestos->getAll();
 
@@ -43,17 +41,9 @@ $puestos = $dataPuestos->getAll();
                         <h5 class="card-title"><?= $post->nombre; ?></h5>
                         <h6 class="card-subtitle mb-2 text-muted"><?= $post->descripcion; ?></h6>
                         <hr>
-                        <a href="../../Candidatos/vistas/candidatoIndex.php?id_puesto=<?= $post->id_puesto; ?>" class="btn btn-danger">Ver candidatos</a>
+                        <a href="../../Candidatos/vistas/CandidatosVotacion.php?id_puesto=<?= $post->id_puesto; ?>" class="btn btn-danger">Ver candidatos</a>
                         <br>
                         <br>
-                        <a href="../../PuestoElectivo/vistas/modificarPuesto.php?id_puesto=<?= $post->id_puesto; ?>" class="btn btn-danger">Modificar</a>
-                        <br>
-                        <br>
-                        <?php if ($post->estado == 1) : ?>
-                            <a href="../../PuestoElectivo/servicios/desactivarPuesto.php?id_puesto=<?= $post->id_puesto; ?>" class="btn btn-danger">Desactivar</a>
-                        <?php else : ?>
-                            <a href="../../PuestoElectivo/servicios/activarPuesto.php?id_puesto=<?= $post->id_puesto; ?>" class="btn btn-dark">Activar</a>
-                        <?php endif; ?>
                     </div>
                 </div>
             </div>

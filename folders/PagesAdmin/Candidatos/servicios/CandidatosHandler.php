@@ -13,6 +13,39 @@ class CandidatosHandler implements IDataBaseHandler
         $this->connection = new databaseConnection($directory);
     }
 
+    function getActiveAll()
+    {
+
+        $tableList = array();
+
+        $stm = $this->connection->db->prepare('Select * FROM Candidatos where estado = true');
+        $stm->execute();
+
+        $result = $stm->get_result();
+
+        if ($result->num_rows === 0) {
+
+            return $tableList;
+        } else {
+            while ($row = $result->fetch_object()) {
+                $user = new Candidatos();
+
+                $user->id_candidato = $row->id_candidato;
+                $user->nombre = $row->nombre;
+                $user->apellido = $row->apellido;
+                $user->id_partido = $row->id_partido;
+                $user->id_puesto = $row->id_puesto;
+                $user->foto_perfil = $row->foto_perfil;
+                $user->estado = $row->estado;
+
+                array_push($tableList, $user);
+            }
+
+            $stm->close();
+            return $tableList;
+        }
+    }
+
     function getActive()
     {
 
@@ -48,6 +81,40 @@ class CandidatosHandler implements IDataBaseHandler
 
     function getInactive()
     {
+    }
+
+    function getCandidateByPuesto($idPuesto)
+    {
+
+        $tableList = array();
+
+        $stm = $this->connection->db->prepare('Select * FROM Candidatos where id_puesto = ?');
+        $stm->bind_param('i', $idPuesto);
+        $stm->execute();
+
+        $result = $stm->get_result();
+
+        if ($result->num_rows === 0) {
+
+            return $tableList;
+        } else {
+            while ($row = $result->fetch_object()) {
+                $user = new Candidatos();
+
+                $user->id_candidato = $row->id_candidato;
+                $user->nombre = $row->nombre;
+                $user->apellido = $row->apellido;
+                $user->id_partido = $row->id_partido;
+                $user->id_puesto = $row->id_puesto;
+                $user->foto_perfil = $row->foto_perfil;
+                $user->estado = $row->estado;
+
+                array_push($tableList, $user);
+            }
+
+            $stm->close();
+            return $tableList;
+        }
     }
 
     function getById($id)
