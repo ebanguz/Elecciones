@@ -10,6 +10,8 @@ session_start();
 
 if(isset($_SESSION['cuidadano'])) {
     $currentCiudadano = json_encode($_SESSION['cuidadano']);
+} else {
+    header('Location: ../../../../index.php');
 }
 
 $layout = new Layout(true, 'Puesto Electivo', true);

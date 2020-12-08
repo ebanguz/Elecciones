@@ -11,13 +11,16 @@ require_once '../../../objects/Candidatos.php';
 require_once '../../../helpers/FileHandler/JsonFileHandler.php';
 require_once '../../../iDataBase/IDatabase.php';
 
-$ID = $_GET['id'];
+if(isset($_GET['id'])) {
 
-$context = new CandidatosHandler('../../../databaseHandler');
-//Simplemente se desactiva el candidato con el update
-$context->Deshabilitar($ID);
+    $ID = $_GET['id'];
 
-header("Location: ../vistas/candidatoIndex.php");
-exit();
+    $context = new CandidatosHandler('../../../databaseHandler');
+    //Simplemente se desactiva el candidato con el update
+    $context->Deshabilitar($ID);
+
+    header("Location: ../vistas/candidatoIndex.php");
+}
+
 
 ?>

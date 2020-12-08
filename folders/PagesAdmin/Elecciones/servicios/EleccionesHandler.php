@@ -117,7 +117,7 @@ class EleccionesHandler implements IDataBaseHandler
             $user->total = $row->total;
 
             $stm->close();
-            return $user->total;
+            return $user;
         }
     }
 
@@ -169,7 +169,7 @@ class EleccionesHandler implements IDataBaseHandler
 
             $stm->close();
 
-            return $user->total;
+            return $user;
         }
     }
 

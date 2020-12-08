@@ -96,17 +96,17 @@ if (count($CandidatosCount) > 2 && count($PartidosCount) > 2 && count($PuestosCo
 
                                     <?php $currentPuestoId = $data->getEleccionesPuestos($eleccion->id_elecciones, $candID->id_candidato); ?>
                                     <?php foreach ($currentPuestoId as $puestoId) : ?>
-                                        <?php $currentPuesto = $dataPuesto->getById($puestoId);
+                                        <?php $currentPuesto = $dataPuesto->getById($puestoId->id_puesto);
                                         echo '<td>' . $currentPuesto->nombre . '</td>';
 
                                         ?>
 
                                         <?php $currentVotosTotales = $data->getEleccionesVotoTotal($eleccion->id_elecciones, $candID->id_candidato); ?>
 
-                                        <td><?= $currentVotosTotales; ?></td>
+                                        <td><?= $currentVotosTotales->total; ?></td>
 
                                         <?php $currentVotosPorcentaje = $data->getEleccionesContByID($eleccion->id_elecciones); ?>
-                                        <td><?= $currentVotosTotales * 100 / $currentVotosPorcentaje; ?>%</td>
+                                        <td><?= $currentVotosTotales->total * 100 / $currentVotosPorcentaje->total; ?>%</td>
 
 
                                     <?php endforeach; ?>

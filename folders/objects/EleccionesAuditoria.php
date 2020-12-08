@@ -27,4 +27,5 @@ class EleccionesAuditoria {
         $this->total = $total;
 
     }
+
 }
