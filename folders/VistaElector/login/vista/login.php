@@ -17,7 +17,7 @@ if (isset($_SESSION['administracion'])) {
 
 if (isset($_SESSION['ciudadano'])) {
 
-    header('Location: ../../../PagesAdmin\PuestoElectivo\vistas\Votacion.php');
+    header('Location: ../../../../index.php');
 }
 
 $layout = new Layout(true, 'Log in', true);
@@ -31,7 +31,7 @@ if(isset($_POST['cedula'])) {
         if($currentCiudadano == true) {
             $_SESSION['ciudadano'] = json_encode($currentCiudadano);
     
-            header('Location: ../../../PagesAdmin\PuestoElectivo\vistas\Votacion.php');
+            header('Location: ../../../../index.php');
         }
 
     } else {

@@ -9,6 +9,10 @@ require_once '../../../objects/Puestos.php';
 
 session_start();
 
+if(isset($_SESSION['ciudadano'])) {
+    header('Location: ../../../../index.php');
+}
+
 if (isset($_SESSION['administracion'])) {
     $administrador = json_decode($_SESSION['administracion']);
 } else {

@@ -5,9 +5,9 @@ require_once '../../../helpers/FileHandler/JsonFileHandler.php';
 require_once '../../../objects/Candidatos.php';
 require_once '../../../objects/Puestos.php';
 require_once '../../../objects/Partidos.php';
-require_once '../servicios/CandidatosHandler.php';
-require_once '../../Partidos/servicios/PartidosHandler.php';
-require_once '../../PuestoElectivo/servicios/PuestosHandler.php';
+require_once '../../../PagesAdmin/Candidatos/servicios/CandidatosHandler.php';
+require_once '../../../PagesAdmin/Partidos/servicios/PartidosHandler.php';
+require_once '../../../PagesAdmin/PuestoElectivo/servicios/PuestosHandler.php';
 require_once '../../../iDataBase/IDatabase.php';
 
 session_start();
@@ -67,7 +67,7 @@ if (isset($_GET['id_puesto'])) {
                             <p class="card-text">Postula como <?= $dataPuesto->getById($candidato->id_puesto)->nombre; ?> para el
                                 partido <?= $dataPartido->getById($candidato->id_partido)->nombre; ?>
                             </p>
-                            <a href="votar.php?id_candidato=<?php echo $candidato->id_candidato; ?>" class="btn text-primary">Votar</a>
+                            <a href="../servicio/votar.php?id_candidato=<?php echo $candidato->id_candidato; ?>" class="btn text-primary">Votar</a>
 
                         </div>
                     </div>

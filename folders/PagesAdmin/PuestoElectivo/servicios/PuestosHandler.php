@@ -1,7 +1,5 @@
 <?php
 
-require_once '../../../databaseHandler/databaseConnection.php';
-require_once '../../../iDataBase/IDatabase.php';
 
 class PuestosHandler implements IDataBaseHandler
 {

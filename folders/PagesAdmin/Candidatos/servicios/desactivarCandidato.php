@@ -11,6 +11,14 @@ require_once '../../../objects/Candidatos.php';
 require_once '../../../helpers/FileHandler/JsonFileHandler.php';
 require_once '../../../iDataBase/IDatabase.php';
 
+session_start();
+
+if (isset($_SESSION['administracion'])) {
+    $administrador = json_decode($_SESSION['administracion']);
+} else {
+    header('Location: ../../Login/vista/loginAdministracion.php');
+}
+
 if(isset($_GET['id'])) {
 
     $ID = $_GET['id'];

@@ -10,6 +10,10 @@ session_start();
 
 $getUser = new AdministrationHandler('../../../databaseHandler');
 
+if(isset($_SESSION['ciudadano'])) {
+    header('Location: ../../../../index.php');
+}
+
 if (isset($_SESSION['administracion'])) {
 
     header('Location: Administracion.php');
