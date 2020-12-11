@@ -47,8 +47,6 @@ $layout = new Layout(true, 'Log in Administración', true);
 <br>
 <br>
 
-<link rel="stylesheet" href="..\..\..\css\sigin.css">
-
 <div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-4">

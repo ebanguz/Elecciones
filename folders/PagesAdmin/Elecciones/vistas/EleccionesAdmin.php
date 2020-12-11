@@ -32,7 +32,7 @@ $CandidatosCount = $dataCandidate->getActiveAll();
 $PartidosCount = $dataPartido->getActive();
 $PuestosCount = $dataPuesto->getActive();
 
-if (count($CandidatosCount) > 2 && count($PartidosCount) > 2 && count($PuestosCount) > 2) {
+if (count($CandidatosCount) > 2 && count($PartidosCount) > 2 && count($PuestosCount) > 0) {
 
     $interruptor = true;
 }

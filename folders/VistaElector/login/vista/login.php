@@ -44,7 +44,6 @@ if(isset($_POST['cedula'])) {
 
 <?php $layout->Header(); ?>
 
-<link rel="stylesheet" href="..\..\..\css\sigin.css">
 
 <div class="pricing-header pt-md-5 pb-md-4 mx-auto text-center">
     <h1 class="display-5">Introducir su documento de indetidad.</h1>
