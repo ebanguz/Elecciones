@@ -47,7 +47,8 @@ class CiudadanosHandler implements IDataBaseHandler
     function getCiudadanoByCedula($cedula)
     {
 
-        $stm = $this->connection->db->prepare('Select * FROM Ciudadanos');
+        $stm = $this->connection->db->prepare('Select * FROM Ciudadanos where cedula = ?');
+        $stm->bind_param("s",$cedula);
         $stm->execute();
 
         $result = $stm->get_result();

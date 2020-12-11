@@ -1,7 +1,6 @@
 <?php
 
-require_once '../../../databaseHandler/databaseConnection.php';
-require_once '../../../iDataBase/IDatabase.php';
+
 
 class EleccionesHandler implements IDataBaseHandler
 {
@@ -149,6 +148,44 @@ class EleccionesHandler implements IDataBaseHandler
         }
     }
 
+    function getEleccionesPuestosByCondition($idElecciones,$cedula,$id_puesto)
+    {
+
+        $stm = $this->connection->db->prepare('Select id_puesto,cedula FROM Elecciones_cont WHERE id_elecciones = ? and cedula = ? and id_puesto = ?');
+        $stm->bind_param('isi', $idElecciones, $cedula, $id_puesto);
+        $stm->execute();
+
+        $result = $stm->get_result();
+
+        if ($result->num_rows === 0) {
+
+            return false;
+        } else {
+
+            $row = $result->fetch_object();
+            $user = new EleccionesAuditoria();
+
+            $user->id_puesto = $row->id_puesto;
+            $user->cedula = $row->cedula;
+        
+            $stm->close();
+            return $user;
+        }
+    }
+
+
+    function FilterPuesto($cedula,$idElecciones,$listaPuestos) {
+
+        foreach($listaPuestos as $key => $list) {
+            $filter = $this->getEleccionesPuestosByCondition($idElecciones,$cedula,$list->id_puesto);
+            if($filter == true) {
+                unset($listaPuestos[$key]);
+                array_values($listaPuestos);
+            }
+        }
+        return $listaPuestos;
+    }
+
     function getEleccionesVotoTotal($idElecciones, $idCandidato)
     {
 
@@ -267,4 +304,3 @@ class EleccionesHandler implements IDataBaseHandler
     {
     }
 }
-?>

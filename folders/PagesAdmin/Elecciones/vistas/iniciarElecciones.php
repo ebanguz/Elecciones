@@ -2,6 +2,8 @@
 
 require_once '../../../layouts/layout.php';
 require_once '../../../helpers/FileHandler/JsonFileHandler.php';
+require_once '../../../iDataBase/IDatabase.php';
+require_once '../../../databaseHandler/databaseConnection.php';
 require_once '../servicios/EleccionesHandler.php';
 require_once '../../../objects/Elecciones.php';
 

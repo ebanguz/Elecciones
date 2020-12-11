@@ -154,4 +154,5 @@ class PuestosHandler implements IDataBaseHandler
         $stm->bind_param('ssi', $entity->nombre, $entity->descripcion, $entity->id_puesto);
         $stm->execute();
     }
+
 }

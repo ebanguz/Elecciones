@@ -5,7 +5,9 @@ require_once 'folders\helpers\FileHandler\JsonFileHandler.php';
 require_once 'folders\databaseHandler\databaseConnection.php';
 require_once 'folders\iDataBase\IDatabase.php';
 require_once 'folders\PagesAdmin\PuestoElectivo\servicios\PuestosHandler.php';
+require_once 'folders\PagesAdmin\Elecciones\servicios\EleccionesHandler.php';
 require_once 'folders\objects\Puestos.php';
+require_once 'folders\objects\EleccionesAuditoria.php';
 
 session_start();
 
@@ -22,7 +24,7 @@ if (isset($_SESSION['administracion'])) {
 if (isset($_SESSION['elecciones']) && isset($_SESSION['ciudadano'])) {
 
     $currentElecciones = json_decode($_SESSION['elecciones']);
-    $currentCiudadano = json_encode($_SESSION['ciudadano']);
+    $currentCiudadano = json_decode($_SESSION['ciudadano']);
 } else {
 
     header('Location: folders\VistaElector\login\vista\login.php');
@@ -30,7 +32,14 @@ if (isset($_SESSION['elecciones']) && isset($_SESSION['ciudadano'])) {
 
 $layout = new Layout(false, 'Puesto Electivo', true);
 $dataPuestos = new PuestosHandler('folders/databaseHandler');
-$puestos = $dataPuestos->getAll();
+$filterPuestos = new EleccionesHandler('folders/databaseHandler');
+$puestosParciales = $dataPuestos->getAll();
+$puestos = $filterPuestos->FilterPuesto($currentCiudadano->cedula,$currentElecciones->id_elecciones,$puestosParciales);
+var_dump($currentCiudadano->cedula);
+var_dump($currentCiudadano->cedula);
+var_dump($currentCiudadano->cedula);
+var_dump($currentCiudadano->nombre);
+var_dump($currentCiudadano->apellido);
 
 ?>
 
@@ -46,7 +55,7 @@ $puestos = $dataPuestos->getAll();
     <div class="col-md-2"></div>
     <?php if ($puestos == "" || $puestos == null) : ?>
         <div class="col-md-4">
-            <h2>No hay puestos agregados.</h1>
+            <h2>Ya votaste por los puestos disponibles.</h1>
         </div>
 
     <?php else : ?>

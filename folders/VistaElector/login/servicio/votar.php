@@ -1,6 +1,7 @@
 <?php 
 
 require_once '../../../helpers/FileHandler/JsonFileHandler.php';
+require_once '../../../iDataBase/IDatabase.php';
 require_once '../../../PagesAdmin/Elecciones/servicios/EleccionesHandler.php';
 require_once '../../../PagesAdmin/Candidatos/servicios/CandidatosHandler.php';
 require_once '../../../PagesAdmin/PuestoElectivo/servicios/PuestosHandler.php';

@@ -4,6 +4,7 @@ require_once '../../../layouts/layout.php';
 require_once '../../../helpers/FileHandler/JsonFileHandler.php';
 require_once '../../../iDataBase/IDatabase.php';
 require_once '../servicios/EleccionesHandler.php';
+require_once '../../../databaseHandler/databaseConnection.php';
 require_once '../../Candidatos/servicios/CandidatosHandler.php';
 require_once '../../Partidos/servicios/PartidosHandler.php';
 require_once '../../PuestoElectivo/servicios/PuestosHandler.php';
@@ -47,7 +48,7 @@ if (count($CandidatosCount) > 2 && count($PartidosCount) > 2 && count($PuestosCo
     <?php elseif ($interruptor == true) : ?>
         <div class="col-md-2"><a class="btn btn-danger" href="iniciarElecciones.php">Iniciar elecciones.</a></div>
     <?php elseif ($interruptor == false) : ?>
-        <h5>Debe tener al menos tres candidatos, partidos y puestos activos para iniciar una elección.</h3>
+        <h5>Debe tener al menos tres candidatos, partidos y un puesto activo para iniciar una elección.</h3>
     <?php endif; ?>
     <div class="col-md-8"></div>
 </div>
