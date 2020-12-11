@@ -1,7 +1,7 @@
 {
     "host": "smtp.gmail.com",
-    "username": "prueba@gmail.com",
-    "password": "ContraseñaRandomCualquiera",
+    "username": "correorandom@gmail.com",
+    "password": "passwordrandom",
     "port": 587,
     "from": "Elecciones"
 }

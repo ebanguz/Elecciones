@@ -35,11 +35,6 @@ $dataPuestos = new PuestosHandler('folders/databaseHandler');
 $filterPuestos = new EleccionesHandler('folders/databaseHandler');
 $puestosParciales = $dataPuestos->getAll();
 $puestos = $filterPuestos->FilterPuesto($currentCiudadano->cedula,$currentElecciones->id_elecciones,$puestosParciales);
-var_dump($currentCiudadano->cedula);
-var_dump($currentCiudadano->cedula);
-var_dump($currentCiudadano->cedula);
-var_dump($currentCiudadano->nombre);
-var_dump($currentCiudadano->apellido);
 
 ?>
 
